@@ -91,6 +91,29 @@ untiTestqueryValue2: - see above
 untiTestqueryValue3: - see above
 untiTestqueryValue4: - see above
 untiTestqueryValue5: - see above
+globalThreadCount: - Number to represent the thread count. Higher for performance testing
+globalIterationCount: - Number to represent the Iterations count each test runs. Higher for performance testing
+specificTestNameThreadCount: - If propertie is present it will overwrite the Thread count just for that test.
+specificTestNameIterationCount: - If propertie is present it will overwrite the Thread count just for that test.
+testScale: - By default set to "local" but also has four other values "BlazeMeter", "OctoPerf", "Azure" "remote" to represent the scale options that could be used. 
+            Note: each test would have a check on the run() section on wheter to run locally or in a scalable environment. With the values depicting which scale type to use. 
+
+reportOutput: - change output report location
+projectRunDetails: - Add additional details to the reports. Such as
+                  Project name, 
+                  tooles used,
+                  Date tested ran
+                  Test ran by X
+                  Api / Deployment tested against. 
+                  Api / Deployment version
+                  Api / Deployment configuration details *Note: I would like lables here so they can be searchable in the future however That would be alot for right now. Therefore more of a nice to have but not required for the moment. 
+                  Api / Deployment Environment details
+                  Testing Environment Details
+                  CommunicationChannels - This would note teams, slack channels or emails on where results should be sent. 
+
+The "gradle.properties" file could be changed in the ci/cd pipelines such as in jenkins on the fly.
+
+
 
 
 
