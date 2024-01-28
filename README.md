@@ -95,6 +95,7 @@ globalThreadCount: - Number to represent the thread count. Higher for performanc
 globalIterationCount: - Number to represent the Iterations count each test runs. Higher for performance testing
 specificTestNameThreadCount: - If propertie is present it will overwrite the Thread count just for that test.
 specificTestNameIterationCount: - If propertie is present it will overwrite the Thread count just for that test.
+performanceResponseTestTime: - Vale of time to be set to determine if pass or fail in test. 
 testScale: - By default set to "local" but also has four other values "BlazeMeter", "OctoPerf", "Azure" "remote" to represent the scale options that could be used. 
             Note: each test would have a check on the run() section on wheter to run locally or in a scalable environment. With the values depicting which scale type to use. 
 
@@ -112,6 +113,24 @@ projectRunDetails: - Add additional details to the reports. Such as
                   CommunicationChannels - This would note teams, slack channels or emails on where results should be sent. 
 
 The "gradle.properties" file could be changed in the ci/cd pipelines such as in jenkins on the fly.
+
+----
+Notes I would have also liked to update the junt html reports to include the following outputs from resultsTreeVisualizer()
+Response -
+![image](https://github.com/SeanFitz1919/sdetTechJmeter/assets/157889810/b0339208-e146-4dec-9d46-b65c50abb14d)
+Assertion Failure Message -
+![image](https://github.com/SeanFitz1919/sdetTechJmeter/assets/157889810/1a2cdd94-e3f4-4822-bd52-1178f28f9daa)
+
+
+and Dashboard Visualizer
+![image](https://github.com/SeanFitz1919/sdetTechJmeter/assets/157889810/91f3c9a8-2647-44ee-91e6-20a2e2475b30)
+
+Documented screenshot
+![image](https://github.com/SeanFitz1919/sdetTechJmeter/assets/157889810/a3dbd1fb-cb12-41fc-9b96-0428d576d9ea)
+
+However the junit reports do successfully indicate which tests pass and fail. This is down to two different types of asserts.
+1) Which checks the json response "jsonAssertion" which uses jpath query to check the response is correct. If the errors returned by jsonAssertion is zero the junit assert passes.
+2) The second Assert checks that the performacne response of the request is less than 5 seconds response by default and would change based on the gradle properites file value to match the thread used and scale configuration. 
 
 
 
