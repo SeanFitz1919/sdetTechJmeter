@@ -1,15 +1,17 @@
+import org.assertj.core.error.MultipleAssertionsError;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import us.abstracta.jmeter.javadsl.core.TestPlanStats;
+import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
+import java.time.Instant;
 import java.time.Duration;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static us.abstracta.jmeter.javadsl.JmeterDsl.*;
 public class GitRepoSearchAPITest {
 
-    public static int globalThreadCount = 1;
-    public static int globalIterationCount = 1;
+    public static int globalThreadCount = 5;
+    public static int globalIterationCount = 2;
     public static String globalHost = "https://api.github.com/search/repositories?";
 
 
