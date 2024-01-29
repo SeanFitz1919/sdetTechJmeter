@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import us.abstracta.jmeter.javadsl.core.TestPlanStats;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class GitRepoSearchAPITest {
         String proLangStrut = "+language:";
         String urlFetchGitReposByPLang = host+queryParameter+keywordSearch1+proLangStrut+"Java&sort=stars&order=desc";
         int repoTotalCountPass = 1272;
+        boolean jsonValueCheck = false;
 
         System.out.println("Testing URl urlFetchGitReposByPLang:"+urlFetchGitReposByPLang);
 
