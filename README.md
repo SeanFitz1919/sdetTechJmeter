@@ -133,7 +133,28 @@ However the junit reports do successfully indicate which tests pass and fail. Th
 2) The second Assert checks that the performacne response of the request is less than 5 seconds response by default and would change based on the gradle properites file value to match the thread used and scale configuration. 
 
 
+# Options for Scaling
+Note: For running at scale see -- https://abstracta.github.io/jmeter-java-dsl/guide/#run-test-at-scale
+        * By using runIn() four options are available for running the jmeter tests at scale.
+Test name can be set, total number of users, threads set per engine and time out 
+        
 
+- BlazeMeter
+Test name can be set, total number of users, threads set per engine and time out. Additonaly a dashboard can be presented showing real time information.
+All that is required is an authenciation token.
+  
+- OctoPerf
+  Similar features to BlazeMeter with similar requirements to setup however also has some addtional featueres such as ramping up users over time. 
+            
+  
+- Azure Load Testing
+Again similar features to the above OctoPerf and BlazeMeter with requireing AZURE_CREDS to authenicate. 
+  
+- JMeter remote testing 
+Meter already provides means to run a test on several machines controlled by one master/client machine. This is referred as Remote Testing
+JMeter remote testing requires setting up nodes in server/slave mode (using bin/jmeter-server JMeter script) with a configured keystore (usually rmi_keystore.jks, generated with bin/ JMeter script)
+which will execute a test plan triggered in a client/master node. This allows for scaling with AWS and any other possible cloud based configuration or virtual machine
+hosting service. Even directly into a custom docker kuberneties setup. 
 
 
 
