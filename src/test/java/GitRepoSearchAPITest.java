@@ -1,13 +1,9 @@
-import org.assertj.core.error.MultipleAssertionsError;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import us.abstracta.jmeter.javadsl.core.TestPlanStats;
-import static us.abstracta.jmeter.javadsl.dashboard.DashboardVisualizer.*;
-import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
-import java.time.Instant;
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static us.abstracta.jmeter.javadsl.JmeterDsl.*;
 public class GitRepoSearchAPITest {
 
@@ -25,14 +21,13 @@ public class GitRepoSearchAPITest {
         String queryParameter = "q=";
         String keywordSearch1 = "manga";
         String proLangStrut = "+language:";
-        String urlFetchGitReposByPLang = host+queryParameter+keywordSearch1+proLangStrut+"Java";
+        String urlFetchGitReposByPLang = host+queryParameter+keywordSearch1+proLangStrut+"Java&sort=stars&order=desc";
         int repoTotalCountPass = 1272;
-        boolean jsonValueCheck = false;
 
         System.out.println("Testing URl urlFetchGitReposByPLang:"+urlFetchGitReposByPLang);
 
         TestPlanStats tPlanGetRepoSearchRepoCountWithJava = testPlan(
-                threadGroup(globalThreadCount, globalIterationCount,
+                threadGroup(10, 2,
                         httpSampler(urlFetchGitReposByPLang)
                                 .children(
                                        jsonAssertion("total_count").equalsTo(repoTotalCountPass)
@@ -65,7 +60,7 @@ public class GitRepoSearchAPITest {
         String queryParameter = "q=";
         String keywordSearch1 = "manga";
         String proLangStrut = "+language:";
-        String urlFetchGitReposByPLang = host+queryParameter+keywordSearch1+proLangStrut+"Java";
+        String urlFetchGitReposByPLang = host+queryParameter+keywordSearch1+proLangStrut+"Java&sort=stars&order=desc";
         int repoTotalCountPass = 99999;
 
         System.out.println("Testing URl urlFetchGitReposByPLang:"+urlFetchGitReposByPLang);
@@ -76,12 +71,11 @@ public class GitRepoSearchAPITest {
                                 .children(
                                         jsonAssertion("total_count").equalsTo(repoTotalCountPass)
                                 )
-                )
+                ), resultsTreeVisualizer()
         ).run();
         assertThat(urlFetchGitRepoBYPLang.overall().errorsCount()).isZero();
         assertThat(urlFetchGitRepoBYPLang.overall().sampleTimePercentile99()).isLessThan(Duration.ofSeconds(5));
     }
-
 
     @Test
     public void getRepoSearchRepoCountWithPythonFilterByCreation() throws IOException {
@@ -104,11 +98,11 @@ public class GitRepoSearchAPITest {
     }
 
     @Test
-    public void getRepoCountWithPythonAndPerlSortedByCreation() throws IOException {
+    public void getRepoCountWithPythonAndPerlFilteredBYCreation() throws IOException {
 
         String url = globalHost+"q=playstation+created:%3C2015-06-17+language:Python+language:Perl&sort=stars&order=asc";
 
-        TestPlanStats urlFetchGitRepoBYPLang = testPlan(
+        TestPlanStats tPlanRCountPythonPerlFilterCreation = testPlan(
                 threadGroup(globalThreadCount, globalIterationCount,
                         httpSampler(url)
                                 .children(
@@ -117,8 +111,8 @@ public class GitRepoSearchAPITest {
                 )//, resultsTreeVisualizer() //Note: For additional debugging test plan assertions
         ).run();
 
-        assertThat(urlFetchGitRepoBYPLang.overall().errorsCount()).isZero();
-        assertThat(urlFetchGitRepoBYPLang.overall().sampleTimePercentile99()).isLessThan(Duration.ofSeconds(5));
+        assertThat(tPlanRCountPythonPerlFilterCreation.overall().errorsCount()).isZero();
+        assertThat(tPlanRCountPythonPerlFilterCreation.overall().sampleTimePercentile99()).isLessThan(Duration.ofSeconds(5));
     }
 
     @Test
@@ -126,7 +120,7 @@ public class GitRepoSearchAPITest {
 
         String url = globalHost+"q=gameboy+user:Humpheh";
 
-        TestPlanStats urlFetchGitRepoBYPLang = testPlan(
+        TestPlanStats tPlanGetRepoByUser = testPlan(
                 threadGroup(globalThreadCount, globalIterationCount,
                         httpSampler(url)
                                 .children(
@@ -136,8 +130,8 @@ public class GitRepoSearchAPITest {
                 )//, resultsTreeVisualizer() //Note: For additional debugging test plan assertions
         ).run();
 
-        assertThat(urlFetchGitRepoBYPLang.overall().errorsCount()).isZero();
-        assertThat(urlFetchGitRepoBYPLang.overall().sampleTimePercentile99()).isLessThan(Duration.ofSeconds(5));
+        assertThat(tPlanGetRepoByUser.overall().errorsCount()).isZero();
+        assertThat(tPlanGetRepoByUser.overall().sampleTimePercentile99()).isLessThan(Duration.ofSeconds(5));
     }
 
     @Test
@@ -146,7 +140,7 @@ public class GitRepoSearchAPITest {
         int numberOfResults = 15;
         String url = globalHost+"q=raspberrypi&s=stars&o=desc&per_page="+numberOfResults+"&page=1";
 
-        TestPlanStats urlFetchGitRepoBYPLang = testPlan(
+        TestPlanStats tPlanRepoMostStarsLimitResultSortDecr = testPlan(
                 threadGroup(globalThreadCount, globalIterationCount,
                         httpSampler(url)
                                 .children(
@@ -156,8 +150,8 @@ public class GitRepoSearchAPITest {
                                 )
                 )//, resultsTreeVisualizer() //Note: For additional debugging test plan assertions
         ).run();
-        assertThat(urlFetchGitRepoBYPLang.overall().errorsCount()).isZero();
-        assertThat(urlFetchGitRepoBYPLang.overall().sampleTimePercentile99()).isLessThan(Duration.ofSeconds(5));
+        assertThat(tPlanRepoMostStarsLimitResultSortDecr.overall().errorsCount()).isZero();
+        assertThat(tPlanRepoMostStarsLimitResultSortDecr.overall().sampleTimePercentile99()).isLessThan(Duration.ofSeconds(5));
     }
 
 }
