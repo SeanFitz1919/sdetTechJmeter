@@ -10,7 +10,7 @@ Noting Documentation -
 https://developer.github.com/v3/search/#search-repositories
 
 ----
-##How to perform the tests. 
+# How to perform the tests. 
 
 At the time of writing navigate to the "Scripts" folder and download the startup script according to the testing environment.
 
@@ -34,6 +34,7 @@ After the script has completed you will have a "Reports" folder in the directory
 a browser window will pop up with the report presented of the 6 jmeter performance/functional tests ran. Noting which failed first and the passing tests.
 
 --------------
+# Startup Script breakdown
 
 By running the startup script for your testing environment it will install the required tools of git and java where applicable.
 *Note these have been commented out in the scripts at the moment as the intent was to detect the os of the system, install via apt-get
@@ -47,12 +48,12 @@ which are all currently version pinned.
 
 Next the 6 tests will run. 
 
-getRepoSearchRepoCountWithJava()
-getRepoSearchRepoCountWithJavaFailingTest()
-getRepoSearchRepoCountWithPythonFilterByCreation()
-getRepoCountWithPythonAndPerlSortedByCreation()
-getReposForUser()
-getReposWithMostStarsLimitedNumberResultsAndSortDecreasing()
+- getRepoSearchRepoCountWithJava()
+- getRepoSearchRepoCountWithJavaFailingTest()
+- getRepoSearchRepoCountWithPythonFilterByCreation()
+- getRepoCountWithPythonAndPerlSortedByCreation()
+- getReposForUser()
+- getReposWithMostStarsLimitedNumberResultsAndSortDecreasing()
 
 A global Thread count and iteration count have been set for the moment as 1. 
 However the intent of this is to be replaced by values set from a gradle.properties file which was intended for the future. 
@@ -85,22 +86,22 @@ to represent all the properites which could be used in the tests.
 
 Unfortualty while I was not able to put a gradle.properties file in time I will brifely show what I was intending to use it for:
 
-remoteURL: - representing the environment url host tested against.
-untiTestqueryValue1: - Pool of values which would be used to generate url calls to testing environment 
-untiTestqueryValue2: - see above
-untiTestqueryValue3: - see above
-untiTestqueryValue4: - see above
-untiTestqueryValue5: - see above
-globalThreadCount: - Number to represent the thread count. Higher for performance testing
-globalIterationCount: - Number to represent the Iterations count each test runs. Higher for performance testing
-specificTestNameThreadCount: - If propertie is present it will overwrite the Thread count just for that test.
-specificTestNameIterationCount: - If propertie is present it will overwrite the Thread count just for that test.
-performanceResponseTestTime: - Vale of time to be set to determine if pass or fail in test. 
-testScale: - By default set to "local" but also has four other values "BlazeMeter", "OctoPerf", "Azure" "remote" to represent the scale options that could be used. 
+- remoteURL: - representing the environment url host tested against.
+- untiTestqueryValue1: - Pool of values which would be used to generate url calls to testing environment 
+- untiTestqueryValue2: - see above
+- untiTestqueryValue3: - see above
+- untiTestqueryValue4: - see above
+- untiTestqueryValue5: - see above
+- globalThreadCount: - Number to represent the thread count. Higher for performance testing
+- globalIterationCount: - Number to represent the Iterations count each test runs. Higher for performance testing
+- specificTestNameThreadCount: - If propertie is present it will overwrite the Thread count just for that test.
+- specificTestNameIterationCount: - If propertie is present it will overwrite the Thread count just for that test.
+- performanceResponseTestTime: - Vale of time to be set to determine if pass or fail in test. 
+- testScale: - By default set to "local" but also has four other values "BlazeMeter", "OctoPerf", "Azure" "remote" to represent the scale options that could be used. 
             Note: each test would have a check on the run() section on wheter to run locally or in a scalable environment. With the values depicting which scale type to use. 
 
-reportOutput: - change output report location
-projectRunDetails: - Add additional details to the reports. Such as
+- reportOutput: - change output report location
+- projectRunDetails: - Add additional details to the reports. Such as
                   Project name, 
                   tooles used,
                   Date tested ran
@@ -140,17 +141,21 @@ Test name can be set, total number of users, threads set per engine and time out
         
 
 - BlazeMeter
+  
 Test name can be set, total number of users, threads set per engine and time out. Additonaly a dashboard can be presented showing real time information.
 All that is required is an authenciation token.
   
 - OctoPerf
-  Similar features to BlazeMeter with similar requirements to setup however also has some addtional featueres such as ramping up users over time. 
+
+Similar features to BlazeMeter with similar requirements to setup however also has some addtional featueres such as ramping up users over time. 
             
   
 - Azure Load Testing
+
 Again similar features to the above OctoPerf and BlazeMeter with requireing AZURE_CREDS to authenicate. 
   
-- JMeter remote testing 
+- JMeter remote testing
+  
 Meter already provides means to run a test on several machines controlled by one master/client machine. This is referred as Remote Testing
 JMeter remote testing requires setting up nodes in server/slave mode (using bin/jmeter-server JMeter script) with a configured keystore (usually rmi_keystore.jks, generated with bin/ JMeter script)
 which will execute a test plan triggered in a client/master node. This allows for scaling with AWS and any other possible cloud based configuration or virtual machine
