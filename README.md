@@ -13,11 +13,12 @@ https://developer.github.com/v3/search/#search-repositories
 # How to perform the tests. 
 
 At the time of writing navigate to the "Scripts" folder and download the startup script according to the testing environment.
+https://github.com/SeanFitz1919/sdetTechJmeter/tree/master/Scripts
 
 If on Linux or mac download the "linuxStartupScript.sh" and if on windows download the "windowsStartupScript.bat".
 
 *Please note due to time contrains the "windowsStartupScript.bat" is not fully functional. Will discuss more regarding intended design
-in the design section of this "README.md" file. However the linuxStartupScript is fuctional on mac and linux.
+in the design section of this "README.md" file. However the linuxStartupScript is fuctional on mac and linux.*
 
 - Linux -
 Open terminal and navigate to the folder which contains the linuxStartupScript.sh and run the following:
